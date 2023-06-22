@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.reservation.dao.ReservationDao">
+	<select id="maxNum" resultType ="int">
+		select nvl(max(num), 0) from reservation
+	</select>
+	
+	<insert id="insertData" parameterType = "reservation">
+	insert into reservation values(#{num},#{name},#{pwd},#{email},
+							#{subject},#{content},sysdate)
+	</insert>
+	
+	<select id="getDataCount" parameterType = "map" resultType ="int">
+	select nvl(count(*), 0) from Reservation
+	where ${searchKey} like '%' || #{searchValue} || '%'
+	</select>
+	
+	<select id="getLists" parameterType ="map" resultType = "reservation">
+	select * from (
+	select rownum rnum, data.* from 
+	(select num, name, subject, to_char(created, 'yyyy-mm-dd') created
+	from reservation
+	where ${searchKey} like '%' || #{searchValue} || '%'
+	order by num desc) data
+	)
+	<![CDATA[
+		where rnum >= #{start} and rnum <= #{end}
+	]]>
+	</select>
+	
+	
+	<select id="getReadData" parameterType="int" resultType="reservation">
+		select * from reservation where num = #{num}
+	</select>
+	
+	<update id="updateData" parameterType ="reservation">
+	update reservation set name= #{name},pwd= #{pwd},email= #{email},
+	subject= #{subject},content= #{content} where num= #{num}
+	</update>
+	
+	<delete id="deleteData" parameterType="int">
+	delete reservation where num = #{num}
+	</delete>
+	
+	
+	
+	
+	
+	
+</mapper>
