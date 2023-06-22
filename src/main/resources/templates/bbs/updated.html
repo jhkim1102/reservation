@@ -1,143 +1,213 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
+
+
 <th:block layout:fragment="css">
-<link rel="stylesheet" type="text/css" href="css/created.css"/>
+<link href="bootstrap/css/created.css" rel = "stylesheet">
 </th:block>
+<!------ Include the above in your HEAD tag ---------->
 
 <div layout:fragment="content" id="bbs">
-	<form action="/updated_ok" method="Post" name="myForm">
-	<div id="bbsCreated">
-		
-		<div class="bbsCreated_bottomLine">
-			<dl>
-				<dt>제&nbsp;&nbsp;&nbsp;&nbsp;목</dt>
-				<dd>
-				<input type="text" name="subject" size="60" 
-				maxlength="100"
-				th:value="${reservation.subject}" class="boxTF"/>
-				</dd>
-			</dl>		
-		</div>
-		
-		<div class="bbsCreated_bottomLine">
-			<dl>
-				<dt>작 성 자</dt>
-				<dd>
-				<input type="text" name="name" size="35" 
-				maxlength="20"
-				th:value="${reservation.name}" class="boxTF"/>
-				</dd>
-			</dl>		
-		</div>
-		
-		<div class="bbsCreated_bottomLine">
-			<dl>
-				<dt>E-Mail</dt>
-				<dd>
-				<input type="text" name="email" size="35" 
-				maxlength="50" 
-				th:value="${reservation.email}"class="boxTF"/>
-				</dd>
-			</dl>		
-		</div>
-		
-		<div id="bbsCreated_content">
-			<dl>
-				<dt>내&nbsp;&nbsp;&nbsp;&nbsp;용</dt>
-				<dd>
-				<textarea rows="12" cols="63" name="content"
-				th:text="${reservation.content}"class="boxTA"></textarea>
-				</dd>
-			</dl>
-		</div>
-		
-		<div class="bbsCreated_noLine">
-			<dl>
-				<dt>패스워드</dt>
-				<dd>
-				<input type="password" name="pwd" size="35" 
-				maxlength="7" 
-				th:value="${reservation.pwd}"class="boxTF"/>
-				&nbsp;(게시물 수정 및 삭제시 필요!!)
-				</dd>
-			</dl>		
-		</div>	
-	
-	</div>
-	
-	<div id="bbsCreated_footer">
-		<!--수정하기를 누르면 post방식으로 데이터가 전달되므로
-			기존의 get방식으로 사용하던 데이터들은 아래와 같이 넘겨준다.  -->
-		<input type="hidden" name = "num" th:value="${reservation.num}"/>
-		<input type="hidden" name = "pageNum" th:value="${pageNum}"/>
-		<input type="hidden" name = "searchKey" th:value="${searchKey}"/>
-		<input type="hidden" name = "searchValue" th:value="${searchValue}"/>
-		
-		<input type="button" value=" 수정하기 " class="btn2" onclick="sendIt();" />
-		<input type="button" value=" 수정취소 " class="btn2" 
-		th:onclick ="|location.href='list?@{${params}}'|"/> 
-	</div>
-	
-	</form>
+<form action="/created" method="post" name="myForm">
+<div class="container register">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <h3>환영합니다</h3>
+                       <!--  <p></p> -->
+                    </div>
+                    <div class="col-md-9 register-right">
+<!--                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Employee</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Hirer</a>
+                            </li>
+                        </ul> -->
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">예약 수정</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        	<dt>여행지</dt>
+                                            <input type="text"  name="subject" class="form-control" placeholder="여행지를 입력하세요 *"maxlength="20"
+                                             th:value="${reservation.subject}"/>
+                                        </div>
+                                        <div class="form-group">
+                                        	<dt>이름</dt>
+                                            <input type="text"  name="name" class="form-control" placeholder="이름을 입력하세요 *" maxlength="20"
+                                            th:value="${reservation.name}"/>
+                                        </div>
+                                        <div class="form-group">
+                                        	<dt>이메일</dt>
+                                            <input type="text"  name="email" class="form-control" placeholder="이메일을 입력하세요 *"  maxlength="50"
+                                            th:value="${reservation.email}"/>
+                                        </div>
+                                        <div class="form-group">
+                                        	<dt>요구사항</dt>
+                                            <textarea type="text" rows="3" cols="20" name="content" class="form-control"  placeholder="요구사항을 입력하세요 *"  maxlength="2000"
+                                            th:text="${reservation.content}"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                        	<dt>패스워드</dt>
+                                            <input type="password" name="pwd" class="form-control"  placeholder="비밀번호를 입력하세요 *"  maxlength="50"
+                                            th:value="${reservation.pwd}"/>
+                                        </div>
+                                        <div class="form-group">
+<!--                                             <div class="maxl">
+                                                <label class="radio inline"> 
+                                                    <input type="radio" name="gender" value="male" checked>
+                                                    <span> Male </span> 
+                                                </label>
+                                                <label class="radio inline"> 
+                                                    <input type="radio" name="gender" value="female">
+                                                    <span>Female </span> 
+                                                </label>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+<!--                                         <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Your Email *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                                <option>What is your Birthdate?</option>
+                                                <option>What is Your old Phone Number</option>
+                                                <option>What is your Pet Name?</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" />
+                                        </div> -->
+                                        <input type="hidden" name = "num" th:value="${reservation.num}"/>
+										<input type="hidden" name = "pageNum" th:value="${pageNum}"/>
+										<input type="hidden" name = "searchKey" th:value="${searchKey}"/>
+										<input type="hidden" name = "searchValue" th:value="${searchValue}"/>
+										
+                                        <input type="button" class="btnRegister"  value="수정하기"
+                                        onclick ="sendIt()"/>
+                                        <input type="button" class="btnRegister"  value="수정취소"
+                                        th:onclick ="|location.href='list?@{${params}}'|"/>
+                                    </div>
+                                </div>
+                            </div>
+<!--                             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <h3  class="register-heading">Apply as a Hirer</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                                <option>What is your Birthdate?</option>
+                                                <option>What is Your old Phone Number</option>
+                                                <option>What is your Pet Name?</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="`Answer *" value="" />
+                                        </div>
+                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+</form>
 </div>
+
 <th:block layout:fragment="script">
 <script th:inline="javascript">
-function sendIt(){
-	var f = document.myForm; //폼 태그
-	var str = f.subject.value; //제목에 입력된 값을 가져온다
-	str = str.trim(); //공백을 앞뒤로 없애준다.
+
+/* 	var errorMessage = [[${errorMessage}]];
+	if(errorMessage !=null){
+		alert(errorMessage);
+	} */
 	
-	if(!str){
-		alert("제목을 입려하세요.");
-		f.subject.focus();
-		return;
-	}
-	
-	str= f.name.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("이름을 입려하세요.");
-		f.name.focus();
-		return;
-	}
-	
-	str = f.email.value;
-	str = str.trim();
-	
-	if(str){
-		if(!isValidEmail(str)){
-			alert("정상적인 이메일을 입력하세요!");
-			f.email.focus();
+	function sendIt(){
+		var f = document.myForm; //폼 태그
+		var str = f.subject.value; //제목에 입력된 값을 가져온다
+		str = str.trim(); //공백을 앞뒤로 없애준다.
+		
+		if(!str){
+			alert("제목을 입력하세요.");
+			f.subject.focus();
 			return;
 		}
-	}
-	
-	str= f.content.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("내용을 입려하세요.");
-		f.content.focus();
-		return;
-	}
-	
-	str= f.pwd.value;
-	str = str.trim();
-	
-	if(!str){
-		alert("패스워드를 입려하세요.");
-		f.pwd.focus();
-		return;
-	}
-	
-	f.submit();
-	
-}
-
+		
+		str= f.name.value;
+		str = str.trim();
+		
+		if(!str){
+			alert("이름을 입력하세요.");
+			f.name.focus();
+			return;
+		}
+		
+		str = f.email.value;
+		str = str.trim();
+		
+		if(str){
+			if(!isValidEmail(str)){
+				alert("정상적인 이메일을 입력하세요!");
+				f.email.focus();
+				return;
+			}
+		}
+		
+		str= f.content.value;
+		str = str.trim();
+		
+		if(!str){
+			alert("내용을 입력하세요.");
+			f.content.focus();
+			return;
+		}
+		
+		str= f.pwd.value;
+		str = str.trim();
+		
+		if(!str){
+			alert("패스워드를 입력하세요.");
+			f.pwd.focus();
+			return;
+		}
+		
+		f.submit();
+		
+	} 
 </script>
 </th:block>
-</html>
+      </html>
