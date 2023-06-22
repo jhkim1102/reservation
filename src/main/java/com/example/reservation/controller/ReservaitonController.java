@@ -79,7 +79,7 @@ public class ReservaitonController {
 			
 			int dataCount = reservationService.getDataCount(searchKey, searchValue);
 			
-			int numPerPage = 3;
+			int numPerPage = 5;
 			int totalPage = myUtil.getPageCount(numPerPage, dataCount);
 			
 			if(currentPage > totalPage) currentPage = totalPage;
