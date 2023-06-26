@@ -40,6 +40,7 @@
 	font-family:굴림; 
 	font-size:9pt;
 }
+
 #bbsList_header .textFiled {
 	border:1px solid; 
 	height:13px; 
@@ -112,4 +113,20 @@
 	margin-top:5px;
 	text-align:center;
 	float: none;
+}
+
+.pagination>li>a, .pagination>li>span {
+	border-radius: 50%
+	 !important;
+	 margin: 0 5px;
+}
+
+.form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
 }

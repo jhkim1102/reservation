@@ -56,7 +56,7 @@ public class MyUtil {
 		while(page <= totalPage && page <= (currentPageSetup + numPerBlock)) {
 			if(page == currentPage) {
 				//현재 내가 선택한 페이지라면
-				sb.append("<font color=\"red\">" + page + "</font>&nbsp;");
+				sb.append("<font color=\"purple\">" + page + "</font>&nbsp;");
 				//<font color = "red">9</font>
 				
 			}else {
